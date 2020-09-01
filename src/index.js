@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './components/App';
 import * as serviceWorker from './utils/serviceWorker';
+import Index from './pages/index/index'
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Index title='Hello World'></Index>
   </React.StrictMode>,
   document.getElementById('root')
 );
