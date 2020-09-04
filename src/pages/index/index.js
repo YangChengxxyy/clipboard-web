@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Chip, Grid, Button, Divider, TextField, Tooltip } from '@material-ui/core';
+import { Container, Chip, Grid, Button, Divider, TextField, Snackbar } from '@material-ui/core';
 import Axios from 'axios';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 class Index extends React.Component {
@@ -7,7 +7,9 @@ class Index extends React.Component {
         super()
         this.state = {
             list: [{ id: 1, content: '暂无数据', }],
-            input: ''
+            input: '',
+            open: false,
+            message: ''
         }
         Axios.get("/api/get_all_clipboard").then((response) => {
             if (response.data === [] || response.data === '') {
@@ -34,6 +36,7 @@ class Index extends React.Component {
                 })
             }
         )
+        this.showMessage('删除成功')
     }
     onClickEvent(v) {
     }
@@ -57,10 +60,24 @@ class Index extends React.Component {
                 })
             }
         )
+        this.showMessage('添加成功')
+    }
+    showMessage(message) {
+        this.setState({ open: true, message: message })
+    }
+    closeSnackbar() {
+        this.setState({ open: false })
     }
     render() {
         return (
             <Container maxWidth='sm'>
+                <Snackbar anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+                    open={this.state.open}
+                    message={this.state.message}
+                    onClose={() => this.closeSnackbar()}
+                    key={'topcenter'}
+                    autoHideDuration={1000}
+                ></Snackbar>
                 <Grid container spacing={3} justify='center' alignItems="center">
                     <Grid item xs={4}>
                         <TextField value={this.state.input} label='在这里输入' onChange={(e) => { this.onChangeEvent(e) }}></TextField>
