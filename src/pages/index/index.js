@@ -6,11 +6,11 @@ class Index extends React.Component {
     constructor() {
         super()
         this.state = {
-            list: [{ id: 1, content: 'sad', }],
+            list: [{ id: 1, content: '暂无数据', }],
             input: ''
         }
         Axios.get("/api/get_all_clipboard").then((response) => {
-            if (response.data === []) {
+            if (response.data === [] || response.data === '') {
                 this.setState({ list: [{ id: 1, content: '暂无数据' }] })
             } else {
                 this.setState({ list: response.data })
@@ -25,16 +25,15 @@ class Index extends React.Component {
         })
         Axios.get("/api/remove_clipboard", { params: { id: id } }).then(
             (response) => {
-
+                Axios.get("/api/get_all_clipboard").then((response) => {
+                    if (response.data === [] || response.data === '') {
+                        this.setState({ list: [{ id: 1, content: '暂无数据' }] })
+                    } else {
+                        this.setState({ list: response.data })
+                    }
+                })
             }
         )
-        Axios.get("/api/get_all_clipboard").then((response) => {
-            if (response.data === []) {
-                this.setState({ list: [{ id: 1, content: '暂无数据' }] })
-            } else {
-                this.setState({ list: response.data })
-            }
-        })
     }
     onClickEvent(v) {
     }
@@ -49,15 +48,15 @@ class Index extends React.Component {
                         open: true
                     })
                 }
+                Axios.get("/api/get_all_clipboard").then((response) => {
+                    if (response.data === [] || response.data === '') {
+                        this.setState({ list: [{ id: 1, content: '暂无数据' }] })
+                    } else {
+                        this.setState({ list: response.data })
+                    }
+                })
             }
         )
-        Axios.get("/api/get_all_clipboard").then((response) => {
-            if (response.data === []) {
-                this.setState({ list: [{ id: 1, content: '暂无数据' }] })
-            } else {
-                this.setState({ list: response.data })
-            }
-        })
     }
     render() {
         return (
