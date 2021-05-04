@@ -2,11 +2,11 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './utils/serviceWorker';
-import Index from './pages/index/index2'
+import Index from './pages/index/index'
 
 ReactDOM.render(
   <React.StrictMode>
-    <Index/>
+    <Index title='HelloWord' />
   </React.StrictMode>,
   document.getElementById('root')
 );

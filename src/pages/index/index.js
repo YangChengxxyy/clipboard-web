@@ -3,7 +3,7 @@ import { Container, Chip, Grid, Button, Divider, TextField, Snackbar } from '@ma
 import Axios from 'axios';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
-const Index = (porps) => {
+const Index = (props) => {
 
     const [list, setList] = useState([{ id: 1, content: '暂无数据', }])
     const [input, setInput] = useState('')
@@ -48,9 +48,9 @@ const Index = (porps) => {
             (response) => {
                 Axios.get("/api/get_all_clipboard").then((response) => {
                     if (response.data === [] || response.data === '') {
-                        this.setState({ list: [{ id: 1, content: '暂无数据' }] })
+                        setList([{ id: 1, content: '暂无数据' }])
                     } else {
-                        this.setState({ list: response.data })
+                        setList(response.data)
                     }
                 })
             }
@@ -68,6 +68,7 @@ const Index = (porps) => {
                 key={'topcenter'}
                 autoHideDuration={1000}
             ></Snackbar>
+            <Chip label={props.title}></Chip>
             <Grid container spacing={3} justify='center' alignItems="center">
                 <Grid item xs={4}>
                     <TextField value={input} label='在这里输入' onChange={(e) => { setInput(e.target.value) }}></TextField>
